@@ -8,30 +8,37 @@
 |------|------|
 | 课程 | 电子系统课程设计 |
 | 主控 | STM32F103C8T6 |
-| 调制方式 | 4FSK（1400/1600/1800/2000 Hz） |
+| 调制方式 | 4FSK（1500/1600/1700/1800 Hz） |
 | 通信距离 | ≥ 0.5 米 |
 | 码元时长 | 100 ms |
 
 ## 硬件架构
 
-- **显示**：0.96" I2C OLED
-- **输入**：4x4 矩阵键盘、独立IO软按键开关
-- **发射**：PWM → 正弦波 → 功放 → 扬声器
-- **接收**：驻极体话筒 → MCP6004 运放放大 → ADC → Goertzel 检测
-- **电源**：高边P-MOS 一键软开关，关机待机 < 1 mA
+- **显示**：0.96" I2C OLED（PB6/PB7）
+- **输入**：4x4 矩阵键盘（PA0-PA7）
+- **发射**：PA8 PWM → N-MOS 低边驱动 → 扬声器
+- **接收**：驻极体话筒 → MCP6002 运放放大 → PB0 ADC → Goertzel 检测
+- **电源**：P-MOS + N-MOS 一键软开关，关机待机 < 1 mA
 
 ## 目录结构
 
 ```
-├── 材料/
-│   ├── 声语信使基础题电路设计方案.docx       # 完整电路设计方案
-│   ├── 声语信使_工作日志与仿真平台记录.docx   # 工作日志与仿真记录
-│   ├── stm32-4fsk-audio.zip                  # 4FSK音频通信代码工程
-│   ├── stm32-4fsk-audio (2).zip              # 代码工程备份
-│   └── dianshe.zip                           # 电设项目压缩包
+├── materials/
+│   ├── c/
+│   │   ├── fsk4_rx_oled_single_file.c    # 接收端源代码（OLED版）
+│   │   └── fsk4_tx_single_file(1).c      # 发送端源代码
+│   ├── fsk4_tx.hex                       # 4FSK发送端固件
+│   ├── fsk4_rx.hex                       # 4FSK接收端固件（无屏）
+│   ├── fsk4_rx_oled.hex                  # 4FSK接收端固件（带OLED）
+│   ├── oled_i2c_bringup_test.hex         # OLED显示测试固件
+│   ├── stm32-4fsk-audio.zip              # 4FSK音频通信代码工程
+│   ├── dianshe.zip                       # 电设项目压缩包
+│   └── *.docx                            # 设计方案、工作日志
+├── team67-media/
+│   └── 通67组电设.mp4 / 封面.jpg         # 项目展示视频
 └── README.md
 ```
 
 ## 快速开始
 
-详见 `材料/声语信使基础题电路设计方案.docx` 中的调试顺序章节。
+详见 `materials/` 中的设计方案文档及 HEX 固件文件。
